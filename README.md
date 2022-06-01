@@ -41,7 +41,9 @@ gcloud alpha compute tpus tpu-vm ssh jax-trainer-mnist-tpu-pod --zone=us-central
 #### launch the ray cluster :star:
 
 **NOTE**: Remember to change the ip address of `10.128.0.38` to your head node ip address!!!
+
 **NOTE**: Remember to change the ip address of `10.128.0.38` to your head node ip address!!!
+
 **NOTE**: Remember to change the ip address of `10.128.0.38` to your head node ip address!!!
 
 ```python 
