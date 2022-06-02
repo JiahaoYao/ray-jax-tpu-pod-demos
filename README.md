@@ -11,7 +11,7 @@ Trains a simple fully connected network on the MNIST dataset.
 ### setup tpu pod 
 
 ```
-bash tpu_launcher.py
+bash tpu_launcher.sh
 ```
 
 ### test the jax tpu
