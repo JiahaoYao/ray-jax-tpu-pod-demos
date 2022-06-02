@@ -271,7 +271,9 @@ bash tpu_ray_cluster.sh
 
 <details>
 <summary>Expected Output</summary>
-```python
+
+
+```python  
 (base) ~/workspace/Github/ray-jax-tpu-pod-demos bash tpu_ray_cluster.sh
 SSH key found in project metadata; not updating instance.
 SSH: Attempting to connect to worker 0...
