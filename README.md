@@ -20,6 +20,31 @@ bash tpu_launcher.py
 gcloud alpha compute tpus tpu-vm ssh jax-trainer-mnist-tpu-pod --zone=us-central1-a --command "sudo python3 -c \"import jax; print(jax.device_count(), jax.local_device_count())\"" --worker all
 ```
 
+
+
+
+<details>
+<summary>Expected Output</summary>
+
+  
+> ```
+> SSH key found in project metadata; not updating instance.
+> SSH: Attempting to connect to worker 0...
+> SSH: Attempting to connect to worker 1...
+> SSH: Attempting to connect to worker 2...
+> SSH: Attempting to connect to worker 3...
+> Warning: Permanently added 'tpu.1660999404634765869-2-4zwxvo' (ECDSA) to the list of known hosts.
+> Warning: Permanently added 'tpu.1660999404634765869-0-eawa07' (ECDSA) to the list of known hosts.
+> Warning: Permanently added 'tpu.1660999404634765869-3-6spoaq' (ECDSA) to the list of known hosts.
+> Warning: Permanently added 'tpu.1660999404634765869-1-snwxxp' (ECDSA) to the list of known hosts.
+> 32 8
+> 32 8
+> 32 8
+> 32 8
+> ```
+
+</details>
+  
 ### upload the files onto the tpu 
 
 ```python
@@ -82,10 +107,15 @@ gcloud alpha compute tpus tpu-vm delete jax-trainer-mnist-tpu-pod \
 #### Tips
 
 - [gcp cheatsheet](https://gist.github.com/pydevops/cffbd3c694d599c6ca18342d3625af97)
+- authetication
+```python
+gcloud auth login
+```
 - log into the tpu (head node)
 ```python
 gcloud alpha compute tpus tpu-vm ssh jax-trainer-mnist-tpu-pod --zone=us-central1-a --worker 0
 ```
+
 
 
 ## Acknoledgements
