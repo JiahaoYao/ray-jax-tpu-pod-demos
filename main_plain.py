@@ -22,6 +22,12 @@ import socket
 import time
 from pprint import pprint
 
+def release_tpu_lock():
+    import subprocess
+    subprocess.run("sudo lsof -w /dev/accel0", shell=True)
+    subprocess.run("sudo rm -f /tmp/libtpu_lockfile", shell=True)
+release_tpu_lock()
+
 import jax
 import jax.numpy as jnp
 import numpy as np
@@ -98,7 +104,6 @@ def main():
     )
 
     train.train_and_evaluate(config, workdir)
-    time.sleep(100)
     sync_devices()
 
 

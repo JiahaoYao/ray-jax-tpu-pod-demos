@@ -52,6 +52,11 @@ def run_job_on_ray(func):
     ]
     ray.get(results)
 
+def release_tpu_lock():
+    import subprocess
+    subprocess.run("sudo lsof -w /dev/accel0", shell=True)
+    subprocess.run("sudo rm -f /tmp/libtpu_lockfile", shell=True)
+
 
 workdir = "/tmp/mnist"
 
@@ -65,7 +70,7 @@ def get_config():
 
     config.learning_rate = 0.1
     config.momentum = 0.9
-    config.batch_size = 8192
+    config.batch_size = 20000
     config.num_epochs = 10
     return config
 
@@ -75,7 +80,7 @@ config = get_config()
 
 @ray.remote(resources={"TPU": 1})
 def main():
-
+    release_tpu_lock()
     import jax
     import tensorflow as tf
 
@@ -106,7 +111,7 @@ def main():
     logging.info("JAX local devices: %r", jax.local_devices())
 
     # adjust the batchsize
-    config.batch_size //= jax.device_count()
+    config.batch_size //= jax.process_count()
 
     # Add a note so that we can tell which task is which JAX host.
     # (Depending on the platform task 0 is not guaranteed to be host 0)

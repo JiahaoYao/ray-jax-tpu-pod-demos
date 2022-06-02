@@ -594,6 +594,11 @@ this means no writing permission, use sudo to launch `ray` cluster!
 if not using tpu, the tpu might be locked (see: https://github.com/google/jax/issues/10192)
 
 ```python
+gcloud alpha compute tpus tpu-vm ssh jax-trainer-mnist-tpu-pod --zone=us-central1-a --command "sudo bash release_tpu_lock.sh" --worker all
+```
+or 
+
+```python
 gcloud alpha compute tpus tpu-vm ssh jax-trainer-mnist-tpu-pod --zone=us-central1-a --command "sudo lsof -w /dev/accel0" --worker all
 gcloud alpha compute tpus tpu-vm ssh jax-trainer-mnist-tpu-pod --zone=us-central1-a --command "sudo rm -f /tmp/libtpu_lockfile" --worker=all
 ```
