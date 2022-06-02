@@ -344,38 +344,6 @@ SSH: Attempting to connect to worker 3...
 </details>
 
 
-- get the head node ip 
-```
-gcloud alpha compute tpus tpu-vm ssh jax-trainer-mnist-tpu-pod --zone=us-central1-a --command "sudo python3 -c \"import ray; print(ray._private.services.get_node_ip_address())\"" --worker 0
-```
-
-<details>
-<summary>Expected Output</summary>
-```python
-(base) ~/workspace/Github/ray-jax-tpu-pod-demos gcloud alpha compute tpus tpu-vm ssh jax-trainer-mnist-tpu-pod --zone=us-central1-a --command "sudo python3 -c \"import ray; print(ray._private.services.get_node_ip_address())\"" --worker 0
-SSH key found in project metadata; not updating instance.
-SSH: Attempting to connect to worker 0...
-10.128.0.38
-```
-</details>
-
-**NOTE**: Remember to change the ip address of `10.128.0.38` to your head node ip address!!!
-
-**NOTE**: Remember to change the ip address of `10.128.0.38` to your head node ip address!!!
-
-**NOTE**: Remember to change the ip address of `10.128.0.38` to your head node ip address!!!
-
-```python 
-gcloud alpha compute tpus tpu-vm ssh jax-trainer-mnist-tpu-pod --zone=us-central1-a --command "ray stop && ray start --head --port=6379 --resources='{\"TPU\":1}'" --worker=0
-
-gcloud alpha compute tpus tpu-vm ssh jax-trainer-mnist-tpu-pod --zone=us-central1-a --command "ray stop && ray start --address='10.128.0.38:6379' --resources='{\"TPU\":1}'" --worker=1
-
-gcloud alpha compute tpus tpu-vm ssh jax-trainer-mnist-tpu-pod --zone=us-central1-a --command "ray stop && ray start --address='10.128.0.38:6379' --resources='{\"TPU\":1}'" --worker=2
-
-gcloud alpha compute tpus tpu-vm ssh jax-trainer-mnist-tpu-pod --zone=us-central1-a --command "ray stop && ray start --address='10.128.0.38:6379' --resources='{\"TPU\":1}'" --worker=3
-```
-
-
 #### run the file on the tpu (only need to run on head node) :star:
 
 ```python
