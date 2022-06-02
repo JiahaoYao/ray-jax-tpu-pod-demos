@@ -22,10 +22,8 @@ import socket
 import time
 from pprint import pprint
 
-import jax
 import numpy as np
 import ray
-import tensorflow as tf
 from absl import app, flags, logging
 from clu import platform
 from ml_collections import config_flags
@@ -33,7 +31,6 @@ from ml_collections import config_flags
 ray.init("auto")
 
 host_ip = socket.gethostbyname(socket.gethostname())
-host_ip_with_port = host_ip + ":1234"
 
 ip_resources = [x for x in ray.cluster_resources() if "node:" in x]
 ip_resources_ = [
@@ -54,25 +51,6 @@ def run_job_on_ray(func):
         for ip_resource in ip_resources
     ]
     ray.get(results)
-
-
-server_addr = host_ip_with_port
-num_hosts = len(ip_resources)
-
-
-def setup_jax_connections():
-    ip_addr = socket.gethostbyname(socket.gethostname())
-    print(ip_addr)
-    host_idx = ip2hostid_dict[ip_addr]
-    jax.distributed.initialize(server_addr, num_hosts, host_idx)
-    print(
-        "host of the node",
-        host_ip_with_port,
-        "host index",
-        host_idx,
-        "node ip",
-        ip_addr,
-    )
 
 
 workdir = "/tmp/mnist"
@@ -99,6 +77,7 @@ config = get_config()
 def main():
 
     import jax
+    import tensorflow as tf
 
     import train
 
@@ -140,7 +119,6 @@ def main():
     )
 
     train.train_and_evaluate(config, workdir)
-    # time.sleep(100)
     sync_devices()
 
 
