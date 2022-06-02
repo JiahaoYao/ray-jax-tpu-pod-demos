@@ -1,6 +1,9 @@
 # ray-jax-tpu-pod-demos
 Demos starting ray cluster on tpu pod
 
+
+
+
 ## MNIST classification
 
 Trains a simple fully connected network on the MNIST dataset.
@@ -45,6 +48,28 @@ gcloud alpha compute tpus tpu-vm ssh jax-trainer-mnist-tpu-pod --zone=us-central
 
 </details>
   
+#### Warning ⚠️
+
+When one sees the following error messages, 
+```python
+I0000 00:00:1654201087.092808   11652 tpu_initializer_helper.cc:116] libtpu.so is already in use by process with pid 9665. Not attempting to load libtpu.so in this process.
+WARNING: Logging before InitGoogle() is written to STDERR
+I0000 00:00:1654201087.087846   11709 tpu_initializer_helper.cc:116] libtpu.so is already in use by process with pid 9708. Not attempting to load libtpu.so in this process.
+WARNING: Logging before InitGoogle() is written to STDERR
+I0000 00:00:1654201087.096611   11906 tpu_initializer_helper.cc:116] libtpu.so is already in use by process with pid 9904. Not attempting to load libtpu.so in this process.
+WARNING: Logging before InitGoogle() is written to STDERR
+I0000 00:00:1654201087.307681   24041 tpu_initializer_helper.cc:116] libtpu.so is already in use by process with pid 18494. Not attempting to load libtpu.so in this process.
+```
+
+the tpu might be locked (see: https://github.com/google/jax/issues/10192), run the following commands to remove the lock. 
+
+```python
+gcloud alpha compute tpus tpu-vm ssh jax-trainer-mnist-tpu-pod --zone=us-central1-a --command "sudo lsof -w /dev/accel0" --worker all
+gcloud alpha compute tpus tpu-vm ssh jax-trainer-mnist-tpu-pod --zone=us-central1-a --command "sudo rm -f /tmp/libtpu_lockfile" --worker=all
+```
+
+  
+
 ### upload the files onto the tpu 
 
 ```python
