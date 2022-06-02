@@ -566,7 +566,7 @@ this should be good (writing permission!)
 
 ### trouble-shooting
 
-if not using tpu, the tpu might be locked 
+if not using tpu, the tpu might be locked (see: https://github.com/google/jax/issues/10192)
 
 ```python
 gcloud alpha compute tpus tpu-vm ssh jax-trainer-mnist-tpu-pod --zone=us-central1-a --command "sudo lsof -w /dev/accel0" --worker all
