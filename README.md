@@ -580,12 +580,12 @@ gcloud alpha compute tpus tpu-vm ssh jax-trainer-mnist-tpu-pod --zone=us-central
 (main pid=51639) [32. 32. 32. 32. 32. 32. 32. 32.]
 ```
 
-
+if one sees this error, 
 ```python
 (main pid=14529, ip=10.128.0.47) Could not open any log file.
 (main pid=14529, ip=10.128.0.47) Could not open the log file '/tmp/tpu_logs/tpu_driver.t1v-n-6875f656-w-2.jimmy.log.INFO.20220602-054725.14529': Permission denied
 ```
-this should be good (writing permission!)
+this means no writing permission, use sudo to launch `ray` cluster!
 </details>
 
 
