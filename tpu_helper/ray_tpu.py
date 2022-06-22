@@ -175,3 +175,7 @@ def start_ray(conn, address):
 # shut down tpu
 # delete_tpu(name='ray_tpu_test',zone='us-central1-a')
 # delete_tpu(name='ray_tpu_simon',zone='us-central1-a')
+
+# print out the ips 
+# ic(list_ips(name='ray_tpu_simon',zone='us-central1-a', external=False))
+# ic(list_ips(name='ray_tpu_simon',zone='us-central1-a', external=True))
