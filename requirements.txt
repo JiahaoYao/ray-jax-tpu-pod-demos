@@ -1,0 +1,14 @@
+absl==0.0
+absl_py==1.0.0
+clu==0.0.7
+einops==0.4.1
+fabric==2.7.0
+flax==0.4.0
+jax==0.3.4
+ml_collections==0.1.1
+numpy==1.21.2
+optax==0.1.1
+ray==3.0.0.dev0
+requests==2.27.1
+tensorflow==2.8.0
+tensorflow_datasets==4.5.2
