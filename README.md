@@ -605,20 +605,20 @@ gcloud alpha compute tpus tpu-vm ssh jax-trainer-mnist-tpu-pod --zone=us-central
 
 ### stop the instance 
 
-```python
+```bash
 gcloud alpha compute tpus tpu-vm delete jax-trainer-mnist-tpu-pod \
   --zone=us-central1-a 
 ```
 
 #### Tips
-
 - [gcp cheatsheet](https://gist.github.com/pydevops/cffbd3c694d599c6ca18342d3625af97)
+- Install GCP CLI following [this guide](https://cloud.google.com/sdk/docs/install)
 - authetication
-```python
+```bash
 gcloud auth login
 ```
 - log into the tpu (head node)
-```python
+```bash
 gcloud alpha compute tpus tpu-vm ssh jax-trainer-mnist-tpu-pod --zone=us-central1-a --worker 0
 ```
 
