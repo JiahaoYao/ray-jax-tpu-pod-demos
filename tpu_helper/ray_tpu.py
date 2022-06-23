@@ -6,7 +6,7 @@ import time
 import glob
 import requests
 from fabric import Connection
-
+from icecream import ic 
 
 @functools.lru_cache()
 def get_bearer():
@@ -68,6 +68,7 @@ def check_tpu(name, zone):
 
 
 def list_tpu_avail(zone):
+    # GET https://tpu.googleapis.com/v1/{parent=projects/*/locations/*}/acceleratorTypes
     headers = {
         'Authorization': f'Bearer {get_bearer()}',
     }
@@ -79,9 +80,19 @@ def list_tpu_avail(zone):
     return response.json()
 
 
-
-
-# GET https://tpu.googleapis.com/v1/{parent=projects/*/locations/*}/acceleratorTypes
+def list_ips(
+        name,
+        zone,
+        external=False
+):
+    info = check_tpu(name, zone)
+    outputs = []
+    for info_item in info["networkEndpoints"]:
+        if external: 
+            outputs.append(info_item['accessConfig']['externalIp'])
+        else: 
+            outputs.append(info_item["ipAddress"])
+    return outputs
 
 def delete_tpu(name, zone):
     headers = {
@@ -163,7 +174,6 @@ def start_ray(conn, address):
     
 
 
-# from icecream import ic 
 # list all the available resources 
 # ic(list_tpu_avail(zone='us-central1-b'))
 # ic(list_tpu_avail(zone='us-central1-a'))
