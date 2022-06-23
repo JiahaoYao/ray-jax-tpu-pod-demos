@@ -617,13 +617,17 @@ gcloud alpha compute tpus tpu-vm delete jax-trainer-mnist-tpu-pod \
 ```bash
 gcloud auth login
 ```
+- Set up a project on Google Cloud with TPU resources, bind it in the CLI
+```bash
+gcloud config set project [PROJECT_ID]
+```
+- Add your ssh key for accessing project on the GCP console
 - log into the tpu (head node)
 ```bash
 gcloud alpha compute tpus tpu-vm ssh jax-trainer-mnist-tpu-pod --zone=us-central1-a --worker 0
 ```
 
 
-
-## Acknoledgements
+## Acknowledgements
 
 Thanks to the help from [Antoni](https://github.com/Yard1) and [Matt](https://github.com/matthewdeng) and their demos [ray-train-demos](https://github.com/matthewdeng/ray-train-demos) and [swarm-jax](https://github.com/Yard1/swarm-jax)!
